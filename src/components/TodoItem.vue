@@ -1,6 +1,7 @@
 <template>
 	<div class="todo-item" v-bind:class="{'is-complete': todo.completed}">
 		<p>
+			<!-- TODO: maybe this can be done in one line using v-model. -->
 			<input type="checkbox" v-if="todo.completed" v-on:change="markComplete" checked>
 			<input type="checkbox" v-if="!todo.completed" v-on:change="markComplete">
 			{{todo.title}}

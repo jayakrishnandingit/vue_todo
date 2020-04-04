@@ -7,6 +7,7 @@
 </template>
 
 <script>
+  import axios from 'axios';
   import Header from './components/layout/Header';
   import AddTodo from './components/AddTodo';
   import Todos from './components/Todos';
@@ -20,37 +21,51 @@
     },
     data() {
       return {
-        todos: [
-          {
-            id: 1,
-            title: "Todo one",
-            completed: false
-          },
-          {
-            id: 2,
-            title: "Todo two",
-            completed: true
-          },
-          {
-            id: 3,
-            title: "Todo three",
-            completed: false
-          }
-        ]
+        todos: [],
+        BASE_URL: 'https://jsonplaceholder.typicode.com/todos'
       }
     },
     methods: {
       setTodos(todos) {
-        this.todos = [...todos];
+        /*
+        Update state and therefore the UI.
+        */
+        this.todos = [...todos]; // ES6: Copy an array using spread operator.
       },
       addTodo(todo) {
-        let todos = [...this.todos, todo];
-        this.setTodos(todos);
+        /*
+        Add a todo item to the server and update the state.
+        */
+        const {title, completed} = todo; // ES6: spread an object into respective variables.
+        axios.post(this.BASE_URL, {
+          title,
+          completed
+        }).then(response => {
+          let todos = [...this.todos, response.data]; // ES6: Copy an array and append new data as well.
+          this.setTodos(todos);
+        }).catch(err => console.log(err))        
       },
       deleteTodo(id) {
-        const todos = this.todos.filter(todo => todo.id != id);
-        this.setTodos(todos)
+        /*
+        Delete a todo item by ID from the server and update the state.
+        */
+        axios.delete(`${this.BASE_URL}/${id}`)
+          .then(response => { // eslint-disable-line
+            const todos = this.todos.filter(todo => todo.id != id);
+            this.setTodos(todos);
+          }).catch(err => console.log(err))
       }
+    },
+    created() {
+      /*
+      A method that is called as soon as a component is mounted.
+      Similar to `componentDidMount` of React.
+
+      Get 5 todos from the server and update state.
+      */
+      axios.get(`${this.BASE_URL}?_limit=5`)
+        .then(response => this.setTodos(response.data))
+        .catch(err => console.log(err))
     }
   }
 </script>
