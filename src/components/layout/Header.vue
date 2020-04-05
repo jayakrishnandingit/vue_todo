@@ -1,13 +1,15 @@
 <template>
-	<header class="header">
-		<h1>Vuedo</h1>
-	</header>
+  <header class="header">
+    <h1>Vuedo</h1>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link>
+  </header>
 </template>
 
 <script>
-	export default {
-		name: "Header"
-	}
+  export default {
+    name: "Header"
+  }
 </script>
 
 <style scoped>
