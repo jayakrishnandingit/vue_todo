@@ -1,25 +1,25 @@
 <template>
-	<div class="todo-item" v-bind:class="{'is-complete': todo.completed}">
-		<p>
-			<!-- TODO: maybe this can be done in one line using v-model. -->
-			<input type="checkbox" v-if="todo.completed" v-on:change="markComplete" checked>
-			<input type="checkbox" v-if="!todo.completed" v-on:change="markComplete">
-			{{todo.title}}
-			<button class="del" @click="$emit('del-todo', todo.id)">x</button>
-		</p>
-	</div>
+    <div class="todo-item" v-bind:class="{'is-complete': todo.completed}">
+        <p>
+            <!-- TODO: maybe this can be done in one line using v-model. -->
+            <input type="checkbox" v-if="todo.completed" v-on:change="markComplete" checked>
+            <input type="checkbox" v-if="!todo.completed" v-on:change="markComplete">
+            {{todo.title}}
+            <button class="del" @click="$emit('del-todo', todo.id)">x</button>
+        </p>
+    </div>
 </template>
 
 <script type="text/javascript">
-	export default {
-		name: "TodoItem",
-		props: ["todo"],
-		methods: {
-			markComplete() {
-				this.todo.completed = !this.todo.completed;
-			}
-		}
-	}
+    export default {
+        name: "TodoItem",
+        props: ["todo"],
+        methods: {
+            markComplete() {
+                this.todo.completed = !this.todo.completed;
+            }
+        }
+    }
 </script>
 
 <style type="text/css" scoped>
