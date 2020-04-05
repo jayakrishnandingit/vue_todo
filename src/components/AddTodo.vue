@@ -1,14 +1,15 @@
 <template>
-    <div>
-        <form @submit="addTodo">
+    <div class="add">
+        <form @submit="onSubmit">
             <input type="text" name="title" v-model="title" placeholder="Add todo..">
-            <input type="submit" value="Add" class="btn">
+            <input type="submit" value="Add">
         </form>
     </div>
 </template>
 
 <script>
-    // import { v4 as uuidv4 } from 'uuid';
+    import { mapActions } from 'vuex';
+
     export default {
         name: "AddTodo",
         data() {
@@ -17,20 +18,10 @@
             }
         },
         methods: {
-            addTodo(e) {
-                /*
-                A function that creates a todo object
-                and emits it to the parent component.
-                */
+            ...mapActions(['addTodo']),
+            onSubmit(e) {
                 e.preventDefault();
-                const newTodo = {
-                    // id: uuidv4(),
-                    title: this.title,
-                    completed: false
-                };
-                // send it to parent component.
-                this.$emit('add-todo', newTodo);
-                // clear the input.
+                this.addTodo(this.title);
                 this.title = '';
             }
         }
@@ -38,14 +29,23 @@
 </script>
 
 <style scoped>
-  form {
-    display: flex;
-  }
-  input[type="text"] {
-    flex: 10;
-    padding: 5px;
-  }
-  input[type="submit"] {
-    flex: 2;
-  }
+.add {
+    margin: 5px 0;
+}
+form {
+  display: flex;
+}
+input[type="text"] {
+  flex: 10;
+  padding: 10px;
+  border: 1px solid #41b883;
+  outline: 0;
+}
+input[type="submit"] {
+  flex: 2;
+  background: #41b883;
+  color: #fff;
+  border: 1px #41b883 solid;
+  cursor: pointer;
+}
 </style>

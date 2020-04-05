@@ -4,6 +4,7 @@
         <div class="todos">
             <div class="todo" v-bind:key="todo.id" v-for="todo in allTodos">
                 {{ todo.title }}
+                <i class="fas fa-trash-alt" @click="deleteTodo(todo.id)"></i>
             </div>
         </div>
     </div>
@@ -20,7 +21,7 @@
             we could do the same format as mapGetters, however
             we have multiple methods hence this form.
             */
-            ...mapActions(['fetchTodos'])
+            ...mapActions(['fetchTodos', 'deleteTodo'])
         },
         computed: mapGetters(['allTodos']),  // pass in all the getters you want to use.
         created() {
@@ -40,8 +41,17 @@
   background: #41b883;
   padding: 1rem;
   border-radius: 5px;
+  color: #fff;
   text-align: center;
   position: relative;
+  cursor: pointer;
+}
+
+i {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: #fff;
   cursor: pointer;
 }
 </style>
