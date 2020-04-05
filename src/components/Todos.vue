@@ -1,21 +1,47 @@
 <template>
     <div id=todos>
         <h1>Todos</h1>
-        <div v-bind:key="todo.id" v-for="todo in todos">
-            <TodoItem v-bind:todo="todo" @del-todo="$emit('del-todo', todo.id)" />
+        <div class="todos">
+            <div class="todo" v-bind:key="todo.id" v-for="todo in allTodos">
+                {{ todo.title }}
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import TodoItem from './TodoItem';
+    import { mapGetters, mapActions } from 'vuex';
 
     export default {
         name: 'Todos',
-        components: {
-            TodoItem
+        methods: {
+            /*
+            Note: pass in all the actions you want to use.
+            we could do the same format as mapGetters, however
+            we have multiple methods hence this form.
+            */
+            ...mapActions(['fetchTodos'])
         },
-        computed: mapGetters(['allTodos'])  // pass in all the getters you want to use.
+        computed: mapGetters(['allTodos']),  // pass in all the getters you want to use.
+        created() {
+            this.fetchTodos();
+        }
     }
 </script>
+
+<style scoped>
+.todos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+}
+.todo {
+  border: 1px solid #ccc;
+  background: #41b883;
+  padding: 1rem;
+  border-radius: 5px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+}
+</style>
