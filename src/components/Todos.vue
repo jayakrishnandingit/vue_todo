@@ -8,12 +8,14 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
     import TodoItem from './TodoItem';
+
     export default {
         name: 'Todos',
         components: {
             TodoItem
         },
-        props: ["todos"]
+        computed: mapGetters(['allTodos'])  // pass in all the getters you want to use.
     }
 </script>
