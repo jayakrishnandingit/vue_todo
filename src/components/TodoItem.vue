@@ -24,7 +24,7 @@
 
 <style type="text/css" scoped>
   .todo-item {
-    background: #f4f4f4;
+    background: transparent;
     padding: 10px;
     border-bottom: 1px #ccc dotted;
   }
