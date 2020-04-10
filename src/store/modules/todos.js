@@ -12,7 +12,7 @@ const getters = {
 
 const actions = {
     async fetchTodos({ commit }) {
-        const response = await axios.get(BASE_URL + '?_limit=5');
+        const response = await axios.get(BASE_URL);
         commit('setTodos', response.data);
     },
     async addTodo({ commit }, title) {
